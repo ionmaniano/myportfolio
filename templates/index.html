@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ian Odiwuor</title>
+
+  <!-- Meta Description & Keywords -->
+  <meta name="description" content="Portfolio website of Ian Odiwuor">
+  <meta name="keywords" content="Ian Odiwuor, portfolio, developer, software engineer">
+
+  <!-- Favicons -->
+  <link href="{{ url_for('static', filename='images/iano.jpg') }}" rel="icon">
+  <link href="{{ url_for('static', filename='images/apple-touch-icon.png') }}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Poppins:wght@300;400;500;600;700&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- CSS Files -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='files/css/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='files/css/lightslider.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='files/css/style.css') }}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+  <style>
+    /* Animated rectangle profile */
+    .profile-img img {
+      width: 330px;
+      height: 470px;
+      object-fit: cover;
+      border-radius: 12px;
+      border: 3px solid #fff;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.25);
+      animation: slideInTop 1.2s ease-out;
+    }
+
+    .sitename {
+      font-weight: 700;
+      color: #fff;
+      animation: fadeIn 1.5s ease-in-out;
+    }
+
+    .social-links a {
+      color: #fff;
+      margin: 0 8px;
+      font-size: 1.3rem;
+      transition: transform 0.3s, color 0.3s;
+      opacity: 0;
+      animation: fadeInUp 1s ease forwards;
+    }
+
+    .social-links a:hover {
+      transform: scale(1.2);
+      color: #0d6efd;
+    }
+
+    .social-links a:nth-child(1) { animation-delay: 0.5s; }
+    .social-links a:nth-child(2) { animation-delay: 0.7s; }
+    .social-links a:nth-child(3) { animation-delay: 0.9s; }
+    .social-links a:nth-child(4) { animation-delay: 1.1s; }
+    .social-links a:nth-child(5) { animation-delay: 1.3s; }
+
+    @keyframes slideInTop {
+      from { transform: translateY(-100px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .header {
+      background: linear-gradient(to bottom right, #0f2027, #203a43, #2c5364);
+      padding: 2rem 1rem;
+      min-height: 100vh;
+    }
+  </style>
+
+</head>
+<body>
+
+  <div class="container-fluid">
+    {% include 'navbar.html' %}
+    
+  </div>
+
+  <header id="header" class="header dark-background d-flex flex-column align-items-center">
+    <i class="header-toggle d-xl-none bi bi-list"></i>
+
+    <!-- Profile Image -->
+    <div class="profile-img text-center mt-5">
+      <img src="{{ url_for('static', filename='images/iano.jpg') }}" alt="Profile Image" class="img-fluid">
+    </div>
+
+    <!-- Name -->
+    <a href="{{ url_for('home') }}" class="logo d-flex align-items-center justify-content-center mt-4">
+      <h1 class="sitename animate__animated ansimate__fadeInDown">Odiwuor N Ian</h1>
+    </a>
+
+    <!-- Social Icons -->
+    <div class="social-links text-center mt-3">
+      <a href="https://twitter.com/@IanOdiwuor" class="twitter" aria-label="Twitter">
+        <i class="bi bi-twitter"></i>
+      </a>
+      <a href="#" class="instagram" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+      <a href="https://github.com/ionmaniano" class="github" aria-label="GitHub"><i class="bi bi-github"></i></a>
+      <a href="#" class="linkedin" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+      <a href="mailto:Odiwuorian@gmail.com" class="gmail" aria-label="Email">
+        <i class="bi bi-envelope"></i>
+      </a>
+     </div>
+     <br>
+     <hr>
+     <div class="mb-4">
+       <p class="text"><I><strong>
+         Building robust frontend and backend, uncovering insights with data, and shaping the future with AI—one line of code at a time.
+       </i></p></st>
+     </div>
+     
+
+
+  </header>
+
+  <!-- JS Scripts -->
+  <script src="{{ url_for('static', filename='files/js/jquery.js') }}"></script>
+  <script src="{{ url_for('static', filename='files/js/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='files/js/lightslider.js') }}"></script>
+  <script src="{{ url_for('static', filename='files/js/script.js') }}"></script>
+
+
+
+</body>
+{% include 'footer.html' %}
+</html>

@@ -1,0 +1,27 @@
+<section class="row">
+    <div class="col-md-12">
+       <nav class="navbar navbar-expand-md navbar-light btn-light p-3">
+           <a href="/" class="navbar-brand animated-link ">Hi, I'm  <b class="text-success">Odiwuor Ian</b></a>
+
+               <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                   <span class="navbar-toggler-icon"></span>
+              </button>
+
+               <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav">
+    <!-- Navigation Menu -->
+    <nav id="navmenu" class="navmenu mt-4">
+        
+          <a href="{{ url_for('home') }}" class="active"><i class="bi bi-house navicon"></i> Home</a>
+          <a href="{{ url_for('about') }}"><i class="bi bi-person navicon"></i> About Me</a>
+          <a href="{{ url_for('education') }}"><i class="bi bi-file-earmark-text navicon"></i> Resume</a>
+          <a href="{{ url_for('project') }}"><i class="bi bi-hdd-stack navicon"></i> Services</a>
+          <a href="{{ url_for('contacts') }}"><i class="bi bi-envelope navicon"></i> Contact</a>
+
+      </nav>
+                    </div>
+                </div>
+       </nav>
+    </div>
+</section>
+<!-- modal class -->
