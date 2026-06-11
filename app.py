@@ -2,40 +2,40 @@ from flask import Flask, request, render_template
 import sqlite3
 from flask_mail import Mail, Message as MailMessage
 
-# -------------------- Flask Setup --------------------
+# -------------------- APP SETUP --------------------
 app = Flask(__name__)
 app.secret_key = "bazenga"
 
-# -------------------- Database Setup --------------------
+# -------------------- DATABASE --------------------
 def get_db():
     conn = sqlite3.connect("database.db", check_same_thread=False)
     conn.row_factory = sqlite3.Row
     return conn
 
-# Create table if not exists
-conn = get_db()
-cursor = conn.cursor()
-cursor.execute("""
-CREATE TABLE IF NOT EXISTS contact_info (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    Name TEXT NOT NULL,
-    Email TEXT NOT NULL,
-    Subject TEXT,
-    Message TEXT NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-)
-""")
-conn.commit()
-cursor.close()
-conn.close()
+# Initialize DB safely
+with get_db() as conn:
+    conn.execute("""
+    CREATE TABLE IF NOT EXISTS contact_info (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        Name TEXT NOT NULL,
+        Email TEXT NOT NULL,
+        Subject TEXT,
+        Message TEXT NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )
+    """)
 
-# -------------------- Email Setup --------------------
-app.config['MAIL_SERVER'] = 'smtp.gmail.com'
-app.config['MAIL_PORT'] = 587
-app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USERNAME'] = 'odiwuorian@gmail.com'
-app.config['MAIL_PASSWORD'] = 'xcvh igxl nwox cefm'
-app.config['MAIL_DEFAULT_SENDER'] = 'odiwuorian@gmail.com'
+# -------------------- EMAIL CONFIG --------------------
+app.config.update(
+    MAIL_SERVER='smtp.gmail.com',
+    MAIL_PORT=587,
+    MAIL_USE_TLS=True,
+    MAIL_USE_SSL=False,
+    MAIL_USERNAME='odiwuorian@gmail.com',
+    MAIL_PASSWORD='xcvh igxl nwox cefm',
+    MAIL_DEFAULT_SENDER='odiwuorian@gmail.com',
+    MAIL_TIMEOUT=10
+)
 
 mail = Mail(app)
 
@@ -56,8 +56,8 @@ def education():
 def project():
     return render_template('project.html')
 
-# -------------------- CONTACT ROUTE (CLEAN) --------------------
-@app.route('/contacts', methods=['POST', 'GET'])
+# -------------------- CONTACT (STABLE VERSION) --------------------
+@app.route('/contacts', methods=['GET', 'POST'])
 def contacts():
     if request.method == 'POST':
         Name = request.form['Name']
@@ -65,43 +65,45 @@ def contacts():
         Subject = request.form.get('Subject', 'No Subject')
         Message = request.form['Message']
 
-        # ---- Save to SQLite ----
+        # -------- SAVE TO DB (SAFE) --------
         try:
-            conn = get_db()
-            cursor = conn.cursor()
-            cursor.execute("""
-                INSERT INTO contact_info (Name, Email, Subject, Message)
-                VALUES (?, ?, ?, ?)
-            """, (Name, Email, Subject, Message))
-            conn.commit()
-            cursor.close()
-            conn.close()
+            with get_db() as conn:
+                conn.execute("""
+                    INSERT INTO contact_info (Name, Email, Subject, Message)
+                    VALUES (?, ?, ?, ?)
+                """, (Name, Email, Subject, Message))
         except Exception as e:
             print("DB Error:", e)
 
-        # ---- Send Email ONLY ----
+        # -------- EMAIL (NON-BLOCKING) --------
         try:
             msg = MailMessage(
-                subject=f"New Contact Form: {Subject}",
+                subject=f"Portfolio Contact: {Subject}",
                 sender=app.config['MAIL_DEFAULT_SENDER'],
                 recipients=['odiwuorian@gmail.com']
             )
-            msg.body = f"""
-From: {Name} <{Email}>
 
+            msg.body = f"""
+New Portfolio Message
+
+Name: {Name}
+Email: {Email}
 Subject: {Subject}
 
 Message:
 {Message}
 """
-            mail.send(msg)
-        except Exception as e:
-            print("Email sending failed:", e)
 
-        return render_template('contacts.html', message="Sent successfully")
+            mail.send(msg)
+            print("Email sent successfully")
+
+        except Exception as e:
+            print("Email failed (ignored):", e)
+
+        # IMPORTANT: always respond fast (prevents Render timeout)
+        return render_template('contacts.html', message="Message received successfully!")
 
     return render_template('contacts.html')
-
 
 # -------------------- RUN --------------------
 if __name__ == '__main__':
