@@ -1,8 +1,6 @@
 from flask import Flask, request, render_template
 import sqlite3
 from flask_mail import Mail, Message as MailMessage
-import requests
-import os
 
 # -------------------- Flask Setup --------------------
 app = Flask(__name__)
@@ -41,7 +39,7 @@ app.config['MAIL_DEFAULT_SENDER'] = 'odiwuorian@gmail.com'
 
 mail = Mail(app)
 
-# -------------------- Routes --------------------
+# -------------------- ROUTES --------------------
 @app.route('/')
 def home():
     return render_template('index.html')
@@ -58,7 +56,7 @@ def education():
 def project():
     return render_template('project.html')
 
-# -------------------- CONTACT ROUTE --------------------
+# -------------------- CONTACT ROUTE (CLEAN) --------------------
 @app.route('/contacts', methods=['POST', 'GET'])
 def contacts():
     if request.method == 'POST':
@@ -68,69 +66,43 @@ def contacts():
         Message = request.form['Message']
 
         # ---- Save to SQLite ----
-        conn = get_db()
-        cursor = conn.cursor()
-        cursor.execute("""
-            INSERT INTO contact_info (Name, Email, Subject, Message)
-            VALUES (?, ?, ?, ?)
-        """, (Name, Email, Subject, Message))
-        conn.commit()
-        cursor.close()
-        conn.close()
+        try:
+            conn = get_db()
+            cursor = conn.cursor()
+            cursor.execute("""
+                INSERT INTO contact_info (Name, Email, Subject, Message)
+                VALUES (?, ?, ?, ?)
+            """, (Name, Email, Subject, Message))
+            conn.commit()
+            cursor.close()
+            conn.close()
+        except Exception as e:
+            print("DB Error:", e)
 
-        # ---- Send Email ----
+        # ---- Send Email ONLY ----
         try:
             msg = MailMessage(
                 subject=f"New Contact Form: {Subject}",
                 sender=app.config['MAIL_DEFAULT_SENDER'],
                 recipients=['odiwuorian@gmail.com']
             )
-            msg.body = f"From: {Name} <{Email}>\n\nMessage:\n{Message}"
-            mail.send(msg)
-        except Exception as e:
-            print("Email sending failed:", e)
+            msg.body = f"""
+From: {Name} <{Email}>
 
-        # ---- Send WhatsApp via ChatKazi API ----
-        try:
-            whatsapp_text = f"""
-New Contact Message 🚀
-
-Name: {Name}
-Email: {Email}
 Subject: {Subject}
 
 Message:
 {Message}
 """
-
-            api_key = os.getenv("CHATKAZI_API_KEY")
-
-            if not api_key:
-                print("WhatsApp API key not set in environment variables")
-            else:
-                response = requests.post(
-                    "https://api.chatkazi.com/api/v1/messages/text",
-                    headers={
-                        "Content-Type": "application/json",
-                        "x-api-key": api_key
-                    },
-                    json={
-                        "sessionId": "portfolio",
-                        "to": "+254702172535",
-                        "text": whatsapp_text
-                    }
-                )
-
-                print("WhatsApp Response:", response.text)
-
+            mail.send(msg)
         except Exception as e:
-            print("WhatsApp sending failed:", e)
+            print("Email sending failed:", e)
 
         return render_template('contacts.html', message="Sent successfully")
 
     return render_template('contacts.html')
 
 
-# -------------------- RUN APP --------------------
+# -------------------- RUN --------------------
 if __name__ == '__main__':
     app.run(debug=True, port=5050)
