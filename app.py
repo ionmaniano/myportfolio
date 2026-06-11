@@ -1,6 +1,8 @@
 from flask import Flask, request, render_template
 import sqlite3
-from flask_mail import Mail, Message
+from flask_mail import Mail, Message as MailMessage
+import requests
+import os
 
 # -------------------- Flask Setup --------------------
 app = Flask(__name__)
@@ -12,7 +14,7 @@ def get_db():
     conn.row_factory = sqlite3.Row
     return conn
 
-# Create contact_info table if it doesn't exist
+# Create table if not exists
 conn = get_db()
 cursor = conn.cursor()
 cursor.execute("""
@@ -33,8 +35,8 @@ conn.close()
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USERNAME'] = 'odiwuorian@gmail.com'  # Your email
-app.config['MAIL_PASSWORD'] = 'xcvh igxl nwox cefm'     # Gmail App Password
+app.config['MAIL_USERNAME'] = 'odiwuorian@gmail.com'
+app.config['MAIL_PASSWORD'] = 'xcvh igxl nwox cefm'
 app.config['MAIL_DEFAULT_SENDER'] = 'odiwuorian@gmail.com'
 
 mail = Mail(app)
@@ -56,6 +58,7 @@ def education():
 def project():
     return render_template('project.html')
 
+# -------------------- CONTACT ROUTE --------------------
 @app.route('/contacts', methods=['POST', 'GET'])
 def contacts():
     if request.method == 'POST':
@@ -77,18 +80,57 @@ def contacts():
 
         # ---- Send Email ----
         try:
-            msg = Message(subject=f"New Contact Form: {Subject}",
-                          sender=app.config['MAIL_DEFAULT_SENDER'],
-                          recipients=['odiwuorian@gmail.com'])
+            msg = MailMessage(
+                subject=f"New Contact Form: {Subject}",
+                sender=app.config['MAIL_DEFAULT_SENDER'],
+                recipients=['odiwuorian@gmail.com']
+            )
             msg.body = f"From: {Name} <{Email}>\n\nMessage:\n{Message}"
             mail.send(msg)
         except Exception as e:
             print("Email sending failed:", e)
 
-        return render_template('contacts.html', message='Sent successfully')
+        # ---- Send WhatsApp via ChatKazi API ----
+        try:
+            whatsapp_text = f"""
+New Contact Message 🚀
+
+Name: {Name}
+Email: {Email}
+Subject: {Subject}
+
+Message:
+{Message}
+"""
+
+            api_key = os.getenv("CHATKAZI_API_KEY")
+
+            if not api_key:
+                print("WhatsApp API key not set in environment variables")
+            else:
+                response = requests.post(
+                    "https://api.chatkazi.com/api/v1/messages/text",
+                    headers={
+                        "Content-Type": "application/json",
+                        "x-api-key": api_key
+                    },
+                    json={
+                        "sessionId": "portfolio",
+                        "to": "+254702172535",
+                        "text": whatsapp_text
+                    }
+                )
+
+                print("WhatsApp Response:", response.text)
+
+        except Exception as e:
+            print("WhatsApp sending failed:", e)
+
+        return render_template('contacts.html', message="Sent successfully")
 
     return render_template('contacts.html')
 
-# -------------------- Run Flask --------------------
+
+# -------------------- RUN APP --------------------
 if __name__ == '__main__':
     app.run(debug=True, port=5050)

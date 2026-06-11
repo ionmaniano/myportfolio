@@ -1,104 +1,280 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Projects - Ian Odiwuor</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Favicon -->
-  <link href="{{ url_for('static', filename='images/iano.jpg') }}" rel="icon" />
+<title>Projects - Ian Odiwuor</title>
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet" />
+<link href="{{ url_for('static', filename='images/fav.jpeg') }}" rel="icon">
 
-  <!-- Bootstrap & Icons -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='files/css/bootstrap.min.css') }}" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Custom CSS -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='files/css/style.css') }}" />
+<link rel="stylesheet" href="{{ url_for('static', filename='files/css/bootstrap.min.css') }}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 
-  <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: #0f2027;
-      color: #fff;
-    }
+<link rel="stylesheet" href="{{ url_for('static', filename='files/css/style.css') }}">
 
-    .section {
-      padding: 60px 20px;
-    }
+<style>
+body {
+    font-family:'Poppins',sans-serif;
+    background:linear-gradient(to bottom right,#0f2027,#203a43,#2c5364);
+    color:#fff;
+}
 
-    .project-card {
-      background-color: #1a1a1a;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-      transition: transform 0.3s ease;
-    }
+.section {
+    padding:70px 20px;
+}
 
-    .project-card:hover {
-      transform: translateY(-5px);
-    }
+.page-title {
+    font-weight:700;
+    letter-spacing:1px;
+}
 
-    .project-img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-    }
+.project-card {
+    background:#1a1a1a;
+    border-radius:15px;
+    overflow:hidden;
+    height:100%;
+    box-shadow:0 5px 20px rgba(0,0,0,.3);
+    transition:.4s;
+}
 
-    .project-content {
-      padding: 20px;
-    }
+.project-card:hover {
+    transform:translateY(-10px);
+    box-shadow:0 10px 30px rgba(13,202,240,.3);
+}
 
-    .project-title {
-      font-size: 1.2rem;
-      color: #0dcaf0;
-    }
+.project-img {
+    width:100%;
+    height:220px;
+    object-fit:cover;
+}
 
-    .project-description {
-      font-size: 0.95rem;
-      color: #ccc;
-    }
-  </style>
+.project-content {
+    padding:25px;
+}
+
+.project-title {
+    color:#0dcaf0;
+    font-size:1.3rem;
+    font-weight:600;
+}
+
+.project-description {
+    color:#ccc;
+    font-size:.95rem;
+    line-height:1.6;
+}
+
+.tech {
+    color:#0dcaf0;
+    font-size:14px;
+}
+
+.btn-project {
+    border-radius:20px;
+}
+</style>
+
 </head>
+
 <body>
 
-  <!-- Navbar -->
-  <div class="container-fluid">
-    {% include 'navbar.html' %}
- 
-  </div>
+<div class="container-fluid">
+{% include 'navbar.html' %}
+</div>
 
-  <!-- Project Section -->
-  <section id="projects" class="section">
-    <div class="container">
-      <h2 class="text-center text-info mb-5 animate__animated animate__fadeInDown">My Projects</h2>
 
-      <div class="row g-4">
+<section class="section">
 
-        <!-- Project 1 -->
-        <div class="col-md-4 animate__animated animate__fadeInUp" style="animation-delay: 0.4s;">
-          <div class="project-card">
-            <img src="{{ url_for('static', filename='images/iano3.jpg') }}" alt="Project 1" class="project-img" />
-            <div class="project-content">
-              <h4 class="project-title">Portfolio Website</h4>
-              <p class="project-description">This personal portfolio site you're viewing now — designed with Flask, Bootstrap, and a touch of creativity.</p>
-              <a href="https://github.com/ionmaniano" class="btn btn-outline-info btn-sm mt-2">GitHub Repo</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+<div class="container">
 
-  <!-- Scripts -->
-  <script src="{{ url_for('static', filename='files/js/jquery.js') }}"></script>
-  <script src="{{ url_for('static', filename='files/js/bootstrap.bundle.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='files/js/script.js') }}"></script>
+<h1 class="text-center text-info page-title mb-5 animate__animated animate__fadeInDown">
+My Projects
+</h1>
+
+
+<div class="row g-4">
+
+
+<!-- Portfolio Website -->
+
+<div class="col-lg-3 col-md-6 animate__animated animate__fadeInUp">
+
+<div class="project-card">
+
+<img src="{{ url_for('static', filename='images/iano3.jpg') }}" class="project-img" alt="Portfolio Website">
+
+<div class="project-content">
+
+<span class="badge bg-info text-dark">
+Web Development
+</span>
+
+<h4 class="project-title">
+Portfolio Website
+</h4>
+
+<p class="project-description">
+A personal developer portfolio website built using Flask,
+Bootstrap, HTML, CSS and JavaScript to showcase my skills,
+experience and projects.
+</p>
+
+<p class="tech">
+Flask | Bootstrap | HTML | CSS | JavaScript
+</p>
+
+<a href="https://github.com/ionmaniano" target="_blank" class="btn btn-outline-info btn-project">
+<i class="bi bi-github"></i> GitHub
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- Real Estate -->
+
+<div class="col-lg-3 col-md-6 animate__animated animate__fadeInUp"
+style="animation-delay:.2s;">
+
+<div class="project-card">
+
+<img src="{{ url_for('static', filename='images/real estate.jpg') }}" class="project-img" alt="Real Estate System">
+
+<div class="project-content">
+
+<span class="badge bg-info text-dark">
+Full Stack
+</span>
+
+<h4 class="project-title">
+Real Estate System
+</h4>
+
+<p class="project-description">
+A web-based real estate management platform that manages
+property listings, property details and user interactions.
+</p>
+
+<p class="tech">
+Python | Flask | MySQL | HTML | CSS
+</p>
+
+<a href="https://github.com/ionmaniano/Real_Estate" target="_blank" class="btn btn-outline-info btn-project">
+<i class="bi bi-github"></i> GitHub
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- Smart Resume Analyzer -->
+
+<div class="col-lg-3 col-md-6 animate__animated animate__fadeInUp"
+style="animation-delay:.4s;">
+
+<div class="project-card">
+
+<img src="{{ url_for('static', filename='images/smart_resume_analyzer.jpg') }}" class="project-img" alt="Smart Resume Analyzer">
+
+<div class="project-content">
+
+<span class="badge bg-info text-dark">
+AI Project
+</span>
+
+<h4 class="project-title">
+Smart Resume Analyzer
+</h4>
+
+<p class="project-description">
+An intelligent application that analyzes resumes,
+extracts important information and provides insights
+to improve job applications.
+</p>
+
+<p class="tech">
+Python | Flask | NLP | Machine Learning
+</p>
+
+<a href="https://github.com/ionmaniano/smart_resume_analyzer" target="_blank" class="btn btn-outline-info btn-project">
+<i class="bi bi-github"></i> GitHub
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- VoteVerse -->
+
+<div class="col-lg-3 col-md-6 animate__animated animate__fadeInUp"
+style="animation-delay:.6s;">
+
+<div class="project-card">
+
+<img src="{{ url_for('static', filename='images/vote.jpg') }}" class="project-img" alt="VoteVerse Casting System">
+
+<div class="project-content">
+
+<span class="badge bg-info text-dark">
+System Development
+</span>
+
+<h4 class="project-title">
+VoteVerse Casting System
+</h4>
+
+<p class="project-description">
+A digital voting platform designed to support secure
+elections, voter management and efficient vote processing.
+</p>
+
+<p class="tech">
+<p class="tech">
+TypeScript | JavaScript | HTML | CSS | Node.js | Database
+</p>
+</p>
+
+<a href="https://github.com/ionmaniano/voteverse-casting-main-1-" target="_blank" class="btn btn-outline-info btn-project">
+<i class="bi bi-github"></i> GitHub
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+<script src="{{ url_for('static', filename='files/js/jquery.js') }}"></script>
+<script src="{{ url_for('static', filename='files/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ url_for('static', filename='files/js/script.js') }}"></script>
 
 </body>
+
 {% include 'footer.html' %}
 
 </html>

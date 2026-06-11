@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>About - Ian Odiwuor</title>
 
   <!-- Favicon -->
-  <link href="{{ url_for('static', filename='images/iano.jpg') }}" rel="icon">
+  <link href="{{ url_for('static', filename='images/fav.jpeg') }}" rel="icon">
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -19,124 +21,507 @@
   <!-- Custom CSS -->
   <link rel="stylesheet" href="{{ url_for('static', filename='files/css/style.css') }}">
 
-  <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(to bottom right, #0f2027, #203a43, #2c5364);
-      color: #fff;
-    }
 
-    .section {
-      padding: 60px 20px;
-    }
+<style>
 
-    .about-image {
-      max-width: 100%;
-      border-radius: 12px;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
-      animation: fadeInLeft 1s ease-in-out;
-    }
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(to bottom right, #0f2027, #203a43, #2c5364);
+  color: #fff;
+}
 
-    .about-text {
-      animation: fadeInRight 1.2s ease-in-out;
-    }
 
-    .about-text h2 {
-      font-weight: 700;
-      margin-bottom: 20px;
-    }
+.section {
+  padding: 60px 20px;
+}
 
-    .about-text p {
-      line-height: 1.7;
-    }
 
-    .info-list li {
-      margin-bottom: 10px;
-    }
+.about-image {
+  max-width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+  animation: fadeInLeft 1s ease-in-out;
+}
 
-    .info-list strong {
-      color: #0dcaf0;
-      width: 120px;
-      display: inline-block;
-    }
 
-    @keyframes fadeInLeft {
-      from { opacity: 0; transform: translateX(-50px); }
-      to { opacity: 1; transform: translateX(0); }
-    }
+.about-text {
+  animation: fadeInRight 1.2s ease-in-out;
+}
 
-    @keyframes fadeInRight {
-      from { opacity: 0; transform: translateX(50px); }
-      to { opacity: 1; transform: translateX(0); }
-    }
-  </style>
+
+.about-text h2 {
+  font-weight:700;
+  margin-bottom:20px;
+}
+
+
+.about-text p {
+  line-height:1.7;
+}
+
+
+.info-list li {
+  margin-bottom:10px;
+}
+
+
+.info-list strong {
+  color:#0dcaf0;
+  width:120px;
+  display:inline-block;
+}
+
+
+/* Skills Cards */
+
+#skills .col-md-4 {
+  transition:0.4s;
+}
+
+
+#skills .col-md-4:hover {
+  transform:translateY(-10px);
+}
+
+
+#skills i {
+  transition:0.3s;
+}
+
+
+#skills .col-md-4:hover i {
+  transform:scale(1.2);
+}
+
+
+@keyframes fadeInLeft {
+
+from {
+opacity:0;
+transform:translateX(-50px);
+}
+
+to {
+opacity:1;
+transform:translateX(0);
+}
+
+}
+
+
+
+@keyframes fadeInRight {
+
+from {
+opacity:0;
+transform:translateX(50px);
+}
+
+to {
+opacity:1;
+transform:translateX(0);
+}
+
+}
+
+
+</style>
+
+
 </head>
+
+
 <body>
 
-  <div class="container-fluid">
-    {% include 'navbar.html' %}
-    
 
-  </div>
+<div class="container-fluid">
 
-  <section id="about" class="section">
-    <div class="container">
-      <div class="row align-items-center g-5">
+{% include 'navbar.html' %}
 
-        <!-- Profile Image -->
-        <div class="col-md-5 text-center">
-          <img src="{{ url_for('static', filename='images/iano2.jpg') }}" alt="Ian Odiwuor" class="about-image">
-        </div>
+</div>
 
-        <!-- Bio & Info -->
-        <div class="col-md-7 about-text">
-          <h2 class="animate__animated animate__fadeInDown">About Me</h2>
-          <p>
-            I'm <strong>Ian Odiwuor</strong>, a passionate software developer focused on delivering high-quality, user-centered web applications,
-            with experience in both frontend and backend development, I enjoy solving real-world problems with clean, efficient code.
-          </p>
-          <ul class="info-list list-unstyled mt-4">
-            <li><strong>Birthday:</strong> 1 January 2005</li>
-            <li><strong>Phone:</strong> +254 710706735</li>
-            <li><strong>City:</strong> Nairobi, Kenya</li>
-            <li><strong>Email:</strong> odiwuorian@gmail.com</li>
-            <li><strong>Degree:</strong> BSc. Computer Science</li>
-            <li><strong>Freelance:</strong> Available</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- Optional Skills Section -->
-  <section id="skills" class="section bg-dark text-white">
-    <div class="container">
-      <h2 class="text-center mb-5 animate__animated animate__fadeInUp">Skills</h2>
-      <div class="row text-center">
-        <div class="col-md-4 mb-4">
-          <i class="bi bi-code-slash fs-1 text-info"></i>
-          <h5 class="mt-3">Frontend</h5>
-          <p>HTML, CSS, JavaScript, Bootstrap</p>
-        </div>
-        <div class="col-md-4 mb-4">
-          <i class="bi bi-server fs-1 text-info"></i>
-          <h5 class="mt-3">Backend</h5>
-          <p>Python, Flask, Django, MySQL</p>
-        </div>
-        <div class="col-md-4 mb-4">
-          <i class="bi bi-tools fs-1 text-info"></i>
-          <h5 class="mt-3">Tools</h5>
-          <p>Git, GitHub, Linux</p>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- JS -->
-  <script src="{{ url_for('static', filename='files/js/jquery.js') }}"></script>
-  <script src="{{ url_for('static', filename='files/js/bootstrap.bundle.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='files/js/script.js') }}"></script>
+<!-- ABOUT SECTION -->
+
+<section id="about" class="section">
+
+<div class="container">
+
+<div class="row align-items-center g-5">
+
+
+<!-- Profile Image -->
+
+<div class="col-md-5 text-center">
+
+<img src="{{ url_for('static', filename='images/iano2.jpg') }}"
+alt="Ian Odiwuor"
+class="about-image">
+
+</div>
+
+
+
+<!-- Bio -->
+
+<div class="col-md-7 about-text">
+
+
+<h2 class="animate__animated animate__fadeInDown">
+About Me
+</h2>
+
+
+<p>
+
+I'm <strong>Ian Odiwuor</strong>, a passionate software developer and 
+Computer Science student focused on building reliable, user-centered 
+software solutions. I have experience in frontend and backend development, 
+database systems, algorithms, and software design. I enjoy solving 
+real-world problems through clean, efficient, and scalable code.
+
+</p>
+
+
+
+<ul class="info-list list-unstyled mt-4">
+
+<li>
+<strong>Birthday:</strong> 1 January 2005
+</li>
+
+
+<li>
+<strong>Phone:</strong> +254 710706735
+</li>
+
+
+<li>
+<strong>City:</strong> Nairobi, Kenya
+</li>
+
+
+<li>
+<strong>Email:</strong> odiwuorian@gmail.com
+</li>
+
+
+<li>
+<strong>Degree:</strong> BSc. Computer Science
+</li>
+
+
+<li>
+<strong>Freelance:</strong> Available
+</li>
+
+
+</ul>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+
+
+
+<!-- SKILLS SECTION -->
+
+
+<section id="skills" class="section bg-dark text-white">
+
+
+<div class="container">
+
+
+<h2 class="text-center mb-5 animate__animated animate__fadeInUp">
+Skills
+</h2>
+
+
+
+<div class="row text-center">
+
+
+
+<!-- Frontend -->
+
+<div class="col-md-4 mb-4">
+
+<i class="bi bi-code-slash fs-1 text-info"></i>
+
+<h5 class="mt-3">
+Frontend Development
+</h5>
+
+<p>
+HTML5, CSS3, JavaScript, Bootstrap,
+Responsive Design, UI/UX Principles
+</p>
+
+</div>
+
+
+
+
+<!-- Backend -->
+
+
+<div class="col-md-4 mb-4">
+
+
+<i class="bi bi-server fs-1 text-info"></i>
+
+
+<h5 class="mt-3">
+Backend Development
+</h5>
+
+
+<p>
+Python, Flask, Django, PHP,
+REST APIs, MySQL, Database Design
+</p>
+
+
+</div>
+
+
+
+
+
+<!-- Programming -->
+
+
+<div class="col-md-4 mb-4">
+
+
+<i class="bi bi-terminal fs-1 text-info"></i>
+
+
+<h5 class="mt-3">
+Programming Languages
+</h5>
+
+
+<p>
+C++, Python, JavaScript,
+PHP, SQL, Object-Oriented Programming
+</p>
+
+
+</div>
+
+
+
+
+
+
+<!-- Algorithms -->
+
+
+<div class="col-md-4 mb-4">
+
+
+<i class="bi bi-diagram-3 fs-1 text-info"></i>
+
+
+<h5 class="mt-3">
+Data Structures & Algorithms
+</h5>
+
+
+<p>
+Arrays, Linked Lists, Stacks, Queues,
+Searching, Sorting Algorithms,
+Algorithm Analysis
+</p>
+
+
+</div>
+
+
+
+
+
+
+
+<!-- Software Engineering -->
+
+
+<div class="col-md-4 mb-4">
+
+
+<i class="bi bi-layers fs-1 text-info"></i>
+
+
+<h5 class="mt-3">
+Software Engineering
+</h5>
+
+
+<p>
+Software Analysis & Design,
+UML Diagrams, System Design,
+Testing & Documentation
+</p>
+
+
+</div>
+
+
+
+
+
+
+
+<!-- Tools -->
+
+
+<div class="col-md-4 mb-4">
+
+
+<i class="bi bi-tools fs-1 text-info"></i>
+
+
+<h5 class="mt-3">
+Tools & Technologies
+</h5>
+
+
+<p>
+Git, GitHub, Linux, VS Code,
+Postman, MySQL Workbench, XAMPP
+</p>
+
+
+</div>
+
+
+
+
+
+
+
+<!-- Networking -->
+
+
+<div class="col-md-4 mb-4">
+
+
+<i class="bi bi-router fs-1 text-info"></i>
+
+
+<h5 class="mt-3">
+Networking & Cloud
+</h5>
+
+
+<p>
+TCP/IP, Router Configuration,
+Network Troubleshooting,
+Cloud Deployment, Domain Configuration
+</p>
+
+
+</div>
+
+
+
+
+
+
+
+<!-- Projects -->
+
+
+<div class="col-md-4 mb-4">
+
+
+<i class="bi bi-folder-check fs-1 text-info"></i>
+
+
+<h5 class="mt-3">
+Project Experience
+</h5>
+
+
+<p>
+Queue Management System,
+Sorting Algorithm Analysis,
+Web Portals, Database Applications
+</p>
+
+
+</div>
+
+
+
+
+
+
+
+<!-- Version Control -->
+
+
+<div class="col-md-4 mb-4">
+
+
+<i class="bi bi-github fs-1 text-info"></i>
+
+
+<h5 class="mt-3">
+Version Control
+</h5>
+
+
+<p>
+Git Workflow, GitHub Repository Management,
+Code Collaboration
+</p>
+
+
+</div>
+
+
+
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+<!-- JS -->
+
+
+<script src="{{ url_for('static', filename='files/js/jquery.js') }}"></script>
+
+<script src="{{ url_for('static', filename='files/js/bootstrap.bundle.min.js') }}"></script>
+
+<script src="{{ url_for('static', filename='files/js/script.js') }}"></script>
+
+
+
 </body>
+
+
 {% include 'footer.html' %}
+
 
 </html>
